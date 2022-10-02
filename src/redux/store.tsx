@@ -1,11 +1,11 @@
 
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import dataSlice from './slices/dataSlice'
+import map from './slices/mapSlice'
 import { useDispatch } from 'react-redux'
 
 export const store = configureStore({
   reducer: {
-    dataSlice,
+    map,
   },
 })
 

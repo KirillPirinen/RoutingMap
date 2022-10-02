@@ -1,18 +1,19 @@
-import { useSelector } from 'react-redux'
-import { Wrapper, ProgressBar } from './components'
-import { getData } from './redux/slices/dataSlice'
+
+import OrderTable from './components/OrderTable/OrderTable'
+import { Wrapper } from './components'
+import { Box, Divider } from '@mui/material'
 
 const App = (): JSX.Element => {
-  const data = useSelector(getData)
-
   return (
     <Wrapper>
-      <ProgressBar 
-        width={600} 
-        height={20}
-        data={data}
-      />
-    </Wrapper>
+      <Box sx={{ width: '50%' }}> 
+        <OrderTable />
+      </Box>
+      <Divider orientation="vertical" flexItem />
+      <Box sx={{ width: '50%' }}>
+
+      </Box> 
+    </Wrapper>  
   )
 }
 
