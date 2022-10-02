@@ -3,5 +3,6 @@ import styled from '@emotion/styled'
 
 export const PaperStyled = styled(Paper)`
   display: flex;
-  justify-content: center;
+  justify-content: start;
+  min-height: 600px;
 `

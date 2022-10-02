@@ -1,19 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAction, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
-import type { Order, Point } from '../types/index'
+import { ApiBody, Coords, Order, Point } from '../types/index'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { points, orders } from '../__mockData__'
+import { sagaActions } from '../sagas/rootSaga'
 
 export type MapInitialState = {
-  focused: Order | null,
+  focused: Order | null
   points: Array<Point>
   orders: Array<Order>
+  path: Array<Coords>
 }
 
 const initialState: MapInitialState = {
   focused: null,
   points,
-  orders
+  orders,
+  path: []
 }
 
 export const mapSlice = createSlice({
@@ -31,9 +34,12 @@ export const mapSlice = createSlice({
     }>) {
       const { type, pointId } = action.payload
       const point = state.points.find(el => el.id === pointId)
-      if(state.focused && point) {
+      if(state.focused?.[type] && point) {
         state.focused[type] = point
       }
+    },
+    setPath(state, action: PayloadAction<Array<Coords>>) {
+      state.path = action.payload
     },
     clearFocus(state) {
       state.focused = null
@@ -44,7 +50,10 @@ export const mapSlice = createSlice({
 export const getPoints = (state: RootState) => state.map.points
 export const getFocused = (state: RootState) => state.map.focused
 export const getOrders = (state: RootState) => state.map.orders
+export const getPath = (state: RootState) => state.map.path
 
-export const { focus, clearFocus, changePoint } = mapSlice.actions
+export const { focus, clearFocus, changePoint, setPath } = mapSlice.actions
+
+export const fetchPath = createAction<ApiBody>(sagaActions.GET_PATH_SAGA)
 
 export default mapSlice.reducer

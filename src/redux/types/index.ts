@@ -1,12 +1,4 @@
 
-export type Progress = {
-  name: string
-  color: string
-  value: number
-}
-
-export type ProgressBarData = Array<Progress>
-
 export type Point = {
   id: string,
   title: string,
@@ -20,3 +12,15 @@ export type Order = {
   loadingPoint: Point
   unloadingPoint: Point
 }
+
+export type Coords = Array<number>
+
+export type ApiData = {
+  features: [{
+    geometry: {
+      coordinates: Array<Coords>
+    }
+  }]
+}
+
+export type ApiBody = [Coords, Coords]
